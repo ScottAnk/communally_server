@@ -63,18 +63,6 @@ def event_detail(request, event_id):
 
 
 # @csrf_exempt
-def register_user(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-
-        user = User.objects.create(name=name, email=email)
-        return JsonResponse({"event_id": user.id})
-    else:
-        return JsonResponse({"error": "Invalid request method"})
-
-
-# @csrf_exempt
 def create_tag(request):
     if request.method == "POST":
         name = request.POST.get("name")
