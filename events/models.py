@@ -1,14 +1,29 @@
 from django.db import models
 
 
+class User(models.Model):
+    name = models.CharField(max_length=500)
+    email = models.CharField(max_length=1000)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self
+
+
 class Event(models.Model):
     name = models.CharField(max_length=100)
     time = models.DateTimeField()
     location = models.CharField(max_length=200)
-    # host = ref to user ID
+    host = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=10000)
     capacity = models.IntegerField()
-    # attendees = array of user IDs
+    attendees = models.ManyToManyField(
+        User, related_name="events_attending"
+    )  # reverse relationship
+    tag = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.name[0:30]
