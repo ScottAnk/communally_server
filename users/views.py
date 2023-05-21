@@ -31,6 +31,6 @@ def user_login(request):
     if user is not None:
         print("#############logged in")
         login(request, user)
-        return HttpResponse("")
+        return JsonResponse({'user_id':user.id})
     else:
         return JsonResponse({"error": "invalid login"})
