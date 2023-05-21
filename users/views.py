@@ -17,7 +17,7 @@ def create(request):
     if "last_name" in request.POST and request.POST["last_name"] != "":
         user.last_name = request.POST.last_name
     user.save()
-    return HttpResponse()
+    return JsonResponse({'user_id':user.id})
 
 
 def user_login(request):
